@@ -7,7 +7,17 @@
 **P**ost**g**res **P**artition **I**ndex is a CLI tool to facilitate creating an INDEX across multiple 
 PostgreSQL 10 partitions/tables.
 
-Example usage:
+## Installation
+
+A direct install is provided for macOS, Linux, and OpenBSD:
+
+```
+curl https://raw.githubusercontent.com/joaodlf/pgpi/master/install.sh | sh
+```
+
+Binaries (including Windows) can also be [downloaded](https://github.com/joaodlf/pgpi/releases).
+
+## Usage
 
 <p align="center">
   <img src="http://i.imgur.com/imSHZPj.jpg" alt="image"/>
