@@ -57,8 +57,10 @@ func validateConfirmation(value string) (bool, error) {
 }
 
 // createPartition executes the CREATE INDEX queries.
-func createPartition(db *sql.DB, query string, wg *sync.WaitGroup) {
-	defer wg.Done()
+func createPartition(db *sql.DB, query string, wg *sync.WaitGroup, concurrency bool) {
+	if concurrency == true {
+		defer wg.Done()
+	}
 
 	cyan.Println(fmt.Sprintf("Executing '%s'", query))
 	_, err := db.Exec(query)
@@ -270,9 +272,9 @@ tr:
 	for _, query := range queries {
 		if concurrency {
 			wg.Add(1)
-			go createPartition(db, query, &wg)
+			go createPartition(db, query, &wg, concurrency)
 		} else {
-			createPartition(db, query, &wg)
+			createPartition(db, query, &wg, concurrency)
 		}
 	}
 
