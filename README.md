@@ -1,5 +1,7 @@
 # pgpi
 
+**Note:** With the release of PostgreSQL 11, this tool is *mostly* not needed. 
+
 > Partitions may have their own indexes, constraints and default values, distinct from those of other partitions. Indexes must be created separately for each partition.
 
 -[PostgreSQL 10 documentation](https://www.postgresql.org/docs/10/static/ddl-partitioning.html)
