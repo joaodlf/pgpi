@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
-	"sync"
 	"syscall"
 
 	"github.com/fatih/color"
@@ -54,20 +53,6 @@ func validateConfirmation(value string) (bool, error) {
 	}
 
 	return false, errors.New("invalid value supplied")
-}
-
-// createPartition executes the CREATE INDEX queries.
-func createPartition(db *sql.DB, query string, wg *sync.WaitGroup, concurrency bool) {
-	if concurrency == true {
-		defer wg.Done()
-	}
-
-	cyan.Println(fmt.Sprintf("Executing '%s'", query))
-	_, err := db.Exec(query)
-
-	if err != nil {
-		red.Println(err)
-	}
 }
 
 func main() {
@@ -150,7 +135,7 @@ func main() {
 	yellow.Println("Connnected!")
 
 tr:
-// TABLE NAME REGEX.
+	// TABLE NAME REGEX.
 	tableNameRegex := ""
 	for {
 		green.Print("Table name regex to apply index (E.g. tablename_.*_.*): ")
@@ -234,21 +219,10 @@ tr:
 		}
 	}
 
-	var concurrency bool
-	for {
-		green.Print("Execute queries concurrently? [y/n]: ")
-		scanner.Scan()
-		concurrency, err = validateConfirmation(scanner.Text())
-
-		if err == nil {
-			break
-		}
-	}
-
 	var queries []string
 	for _, table := range tables {
 		fullIndexName := fmt.Sprintf("%s_%s", table, indexName)
-		indexQuery := fmt.Sprintf(`CREATE %s INDEX %s ON %s (%s);`, uniqueIndexStr, fullIndexName, table, indexColumns)
+		indexQuery := fmt.Sprintf(`CREATE %s INDEX CONCURRENTLY %s ON %s (%s);`, uniqueIndexStr, fullIndexName, table, indexColumns)
 		queries = append(queries, indexQuery)
 		cyan.Println(indexQuery)
 	}
@@ -267,17 +241,14 @@ tr:
 	if !execute {
 		os.Exit(0)
 	}
-
-	var wg sync.WaitGroup
 	for _, query := range queries {
-		if concurrency {
-			wg.Add(1)
-			go createPartition(db, query, &wg, concurrency)
-		} else {
-			createPartition(db, query, &wg, concurrency)
+		cyan.Println(fmt.Sprintf("Executing '%s'", query))
+		_, err := db.Exec(query)
+
+		if err != nil {
+			red.Println(err)
 		}
 	}
 
-	wg.Wait()
 	green.Println("All queries executed!")
 }
