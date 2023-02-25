@@ -8,5 +8,5 @@ github.com/mattn/go-isatty v0.0.3 h1:ns/ykhmWi7G9O+8a448SecJU3nSMBXJfqQkl0upE1jI
 github.com/mattn/go-isatty v0.0.3/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
 golang.org/x/crypto v0.0.0-20180228161326-91a49db82a88 h1:jLkAo/qlT9whgCLYC5GAJ9kcKrv3Wj8VCc4N+KJ4wpw=
 golang.org/x/crypto v0.0.0-20180228161326-91a49db82a88/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
-golang.org/x/sys v0.0.0-20180302081741-dd2ff4accc09 h1:wNPZbZUOH0tyqngVRXeF2iQm19+ssqyebJTCFBvxsow=
-golang.org/x/sys v0.0.0-20180302081741-dd2ff4accc09/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/sys v0.1.0 h1:kunALQeHf1/185U1i0GOB/fy1IPRDDpuoOOqRReG57U=
+golang.org/x/sys v0.1.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
